@@ -1,0 +1,171 @@
+{
+  "name": "iscsi",
+  "description": "Installs/Configures iscsi",
+  "long_description": "= DESCRIPTION:\n\n= REQUIREMENTS:\n\n= ATTRIBUTES:\n\n= USAGE:\n\n",
+  "maintainer": "Gerald L. Hevener, Jr, M.S.",
+  "maintainer_email": "hevenerg@marshall.edu",
+  "license": "Apache 2.0",
+  "platforms": {
+  },
+  "dependencies": {
+    "multipath": ">= 0.0.0",
+    "sysctl": ">= 0.0.0"
+  },
+  "recommendations": {
+  },
+  "suggestions": {
+  },
+  "conflicting": {
+  },
+  "providing": {
+  },
+  "replacing": {
+  },
+  "attributes": {
+    "iscsi/session/timeo/replacement_timeout": {
+      "display_name": "iscsi/session/timeo/replacement_timeout",
+      "description": "Length of time to wait for session re-establishment before failing SCSI commands back to application.",
+      "default": "120",
+      "choice": [
+
+      ],
+      "calculated": false,
+      "type": "string",
+      "required": "optional",
+      "recipes": [
+
+      ]
+    },
+    "iscsi/conn0/timeo/noop_out_interval": {
+      "display_name": "iscsi/conn0/timeo/noop_out_interval",
+      "description": "Time interval to wait before sending a ping.",
+      "default": "5",
+      "choice": [
+
+      ],
+      "calculated": false,
+      "type": "string",
+      "required": "optional",
+      "recipes": [
+
+      ]
+    },
+    "iscsi/conn0/timeo/noop_out_timeout": {
+      "display_name": "iscsi/conn0/timeo/noop_out_timeout",
+      "description": "Time to wait for a Nop-out response before failing the connection.",
+      "default": "5",
+      "choice": [
+
+      ],
+      "calculated": false,
+      "type": "string",
+      "required": "optional",
+      "recipes": [
+
+      ]
+    },
+    "iscsi/session/initial_login_retry_max": {
+      "display_name": "iscsi/session/initial_login_retry_max",
+      "description": "This only affects the initial login.",
+      "default": "8",
+      "choice": [
+
+      ],
+      "calculated": false,
+      "type": "string",
+      "required": "optional",
+      "recipes": [
+
+      ]
+    },
+    "iscsi/session/cmds_max": {
+      "display_name": "iscsi/session/cmds_max",
+      "description": "Control how many commands the session will queue",
+      "default": "128",
+      "choice": [
+
+      ],
+      "calculated": false,
+      "type": "string",
+      "required": "optional",
+      "recipes": [
+
+      ]
+    },
+    "iscsi/session/queue_depth": {
+      "display_name": "iscsi/session/queue_depth",
+      "description": "Control the device's queue depth",
+      "default": "32",
+      "choice": [
+
+      ],
+      "calculated": false,
+      "type": "string",
+      "required": "optional",
+      "recipes": [
+
+      ]
+    },
+    "iscsi/session/iscsi/fastabort": {
+      "display_name": "iscsi/session/iscsi/fastabort",
+      "description": "This is target specific, set to Yes for IET, No for Equallogic",
+      "default": "Yes",
+      "choice": [
+
+      ],
+      "calculated": false,
+      "type": "string",
+      "required": "optional",
+      "recipes": [
+
+      ]
+    },
+    "net/ipv4/conf/all/arp_ignore": {
+      "display_name": "net/ipv4/conf/all/arp_ignore",
+      "description": "Workaround for ARP behavior with multiple interfaces on one subnet.",
+      "default": "1",
+      "choice": [
+
+      ],
+      "calculated": false,
+      "type": "string",
+      "required": "optional",
+      "recipes": [
+
+      ]
+    },
+    "net/ipv4/conf/all/arp_announce": {
+      "display_name": "net/ipv4/conf/all/arp_announce",
+      "description": "Workaround for ARP behavior with multiple interfaces on one subnet.",
+      "default": "2",
+      "choice": [
+
+      ],
+      "calculated": false,
+      "type": "string",
+      "required": "optional",
+      "recipes": [
+
+      ]
+    },
+    "net/ipv4/netfilter/ip_conntrack_tcp_be_liberal": {
+      "display_name": "net/ipv4/netfilter/ip_conntrack_tcp_be_liberal",
+      "description": "Workaround for packets being mareked invalid under heavy load on iSCSI.",
+      "default": "1",
+      "choice": [
+
+      ],
+      "calculated": false,
+      "type": "string",
+      "required": "optional",
+      "recipes": [
+
+      ]
+    }
+  },
+  "groupings": {
+  },
+  "recipes": {
+  },
+  "version": "0.0.2"
+}
