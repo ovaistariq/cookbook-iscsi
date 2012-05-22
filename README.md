@@ -2,7 +2,7 @@
 
 ## Description
 
-  This cookbook provides provides the ability to configure Open-iSCSI for
+  This cookbook provides the ability to configure Open-iSCSI for
 Enterprise Linux based systems.  The default attributes reflect original
 research and recommendations gathered from Dell, Equallogic, and RedHat.
 
