@@ -1,1 +1,8 @@
+# emacs
+*~
+
+# vim
+*.sw[a-z]
+
+# metadata.json
 metadata.json

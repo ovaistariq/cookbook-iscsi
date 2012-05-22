@@ -42,19 +42,9 @@ template "/etc/udev/rules.d/50-ethtool.rules" do
   notifies :run, "execute[udevcontrol_reload_rules]"
 end
 
-service "iscsid" do
-  supports :status => true, :restart => true
-  action [ :enable, :start ]
+%w{ iscsid iscsi netfs }.each do |iscsi_subsys|
+  service iscsi_subsys do
+    supports :status => true, :restart => true
+    action [ :enable, :start ]
+  end
 end
-
-service "iscsi" do
-  supports :status => true, :restart => true
-  action [ :enable, :start ]
-end
-
-service "netfs" do
-  supports :status => true, :restart => true
-  action [ :enable, :start ]
-end
-
-include_recipe "el-sysctl"
