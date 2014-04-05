@@ -79,9 +79,6 @@ override_attributes 'iscsi' => {
       'fastabort' => 'No'
   }
 },
-'sysctl' => {
-  'has_iscsi' => true
-}
 run_list 'recipe[iscsi]', 'recipe[multipath]', 'recipe[dbench]'
 ```
 
