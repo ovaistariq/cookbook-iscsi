@@ -18,33 +18,35 @@
 # limitations under the License.
 #
 
-node["iscsi"]["packages"].each do |iscsi_package|
+include_recipe 'sysctl'
+
+node['iscsi']['packages'].each do |iscsi_package|
   package iscsi_package
 end
 
-template "/etc/iscsi/iscsid.conf" do
-  source "iscsid.conf.erb"
-  mode "0600"
-  owner "root"
-  group "root"
+template '/etc/iscsi/iscsid.conf' do
+  source 'iscsid.conf.erb'
+  owner 'root'
+  group 'root'
+  mode 00600
 end
 
-execute "udevcontrol_reload_rules" do
-  command "udevcontrol reload_rules"
+execute 'udev_reload_rules' do
+  command node['iscsi']['udev']['reload_command']
   action :nothing
 end
 
-template "/etc/udev/rules.d/50-ethtool.rules" do
-  source "50-ethtool.rules.erb"
-  owner "root"
-  group "root"
-  mode "0644"
-  notifies :run, "execute[udevcontrol_reload_rules]"
+template '/etc/udev/rules.d/50-ethtool.rules' do
+  source '50-ethtool.rules.erb'
+  owner 'root'
+  group 'root'
+  mode 00644
+  notifies :run, 'execute[udev_reload_rules]'
 end
 
-%w{ iscsid iscsi netfs }.each do |iscsi_subsys|
+%w(iscsid iscsi netfs).each do |iscsi_subsys|
   service iscsi_subsys do
-    supports :status => true, :restart => true
-    action [ :enable, :start ]
+    supports status: true, restart: true
+    action [:enable, :start]
   end
 end

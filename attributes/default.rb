@@ -1,6 +1,6 @@
 #
-# Cookbook Name:: iscsi 
-# Attributes:: default 
+# Cookbook Name:: iscsi
+# Attributes:: default
 #
 # Copyright 2010, Gerald L. Hevener Jr, M.S.
 # Copyright 2010, Eric G. Wolfe
@@ -25,6 +25,12 @@ default['iscsi']['session']['timeo']['replacement_timeout'] = 15
 default['iscsi']['conn0']['timeo']['noop_out_interval'] = 5
 default['iscsi']['conn0']['timeo']['noop_out_timeout'] = 5
 
+if node['platform_version'].to_i >= 6
+  default['iscsi']['udev']['reload_command'] = 'udevadm control --reload-rules'
+else
+  default['iscsi']['udev']['reload_command'] = 'udevcontrol reload_rules'
+end
+
 # RHEL default = 8, Recommendation = 12
 # Source: http://support.dell.com/support/edocs/software/rhel_mn/rhel5_4/iig_en.pdf
 default['iscsi']['session']['initial_login_retry_max'] = 12
@@ -39,16 +45,17 @@ default['iscsi']['session']['queue_depth'] = 128
 
 # Set to Yes, if using a BSD-based iSCSI Enterprise Target (IET)
 # Set to No, for Equallogic arrays
-default['iscsi']['session']['iscsi']['fastabort'] = "Yes"
+default['iscsi']['session']['iscsi']['fastabort'] = 'Yes'
 
 # Following attributes only apply to sysctl recipe
-default['net']['ipv4']['conf']['all']['arp_ignore'] = 1
-default['net']['ipv4']['conf']['all']['arp_announce'] = 2
-default['net']['ipv4']['netfilter']['ip_conntrack_tcp_be_liberal'] = 1
+include_attribute 'sysctl'
+default['sysctl']['params']['net']['ipv4']['conf']['all']['arp_ignore'] = 1
+default['sysctl']['params']['net']['ipv4']['conf']['all']['arp_announce'] = 2
+default['sysctl']['params']['net']['ipv4']['netfilter']['ip_conntrack_tcp_be_liberal'] = 1 if node['platform_version'].to_i == 5
 
 # Following attributes apply to 50-ethtool.rules template
-default['iscsi']['interfaces'] = Array.new 
-default['iscsi']['ethtool_opts'] = [ "-A autoneg off rx on tx on", "-K gro off" ]
+default['iscsi']['udev']['interfaces'] = []
+default['iscsi']['udev']['ethtool_opts'] = ['-A %k autoneg off rx on tx on', '-K %k gro off']
 
 # Following attributes are default set of packages to install
-default['iscsi']['packages'] = %w{ iscsi-initiator-utils }
+default['iscsi']['packages'] = %w(iscsi-initiator-utils)

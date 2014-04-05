@@ -1,8 +1,16 @@
-# emacs
+.vagrant
+.kitchen
+Berksfile.lock
 *~
+*#
+.#*
+\#*#
+.*.sw[a-z]
+*.un~
+/cookbooks
 
-# vim
-*.sw[a-z]
+# Bundler
+Gemfile.lock
+bin/*
+.bundle/*
 
-# metadata.json
-metadata.json

@@ -1,8 +1,8 @@
 #
 # Cookbook Name:: iscsi
-# Recipe:: rescan-scsi-bus 
+# Recipe:: rescan-scsi-bus
 #
-# Copyright 2012, Eric G. Wolfe 
+# Copyright 2012, Eric G. Wolfe
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -18,8 +18,8 @@
 #
 
 # Drop off Kurt Garloff's rescan scsi helper script
-cookbook_file "/usr/local/bin/rescan-scsi-bus" do
-  owner "root"
-  group "root"
-  mode 0755
+cookbook_file '/usr/local/bin/rescan-scsi-bus' do
+  owner 'root'
+  group 'root'
+  mode 00755
 end
