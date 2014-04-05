@@ -1,7 +1,7 @@
 iSCSI Cookbook
 --------------
 
-[![Build Status](https://secure.travis-ci.org/atomic-penguin/cookbook-iscsi.png?branch=master)](http://travis-ci.org/atomic-penguin/iscsi)
+[![Build Status](https://secure.travis-ci.org/atomic-penguin/cookbook-iscsi.png?branch=master)](http://travis-ci.org/atomic-penguin/cookbook-iscsi)
 
 Description
 ===========
