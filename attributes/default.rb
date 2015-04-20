@@ -58,4 +58,4 @@ default['iscsi']['udev']['interfaces'] = []
 default['iscsi']['udev']['ethtool_opts'] = ['-A %k autoneg off rx on tx on', '-K %k gro off']
 
 # Following attributes are default set of packages to install
-default['iscsi']['packages'] = %w(iscsi-initiator-utils)
+default['iscsi']['packages'] = %w(iscsi-initiator-utils lsscsi)
