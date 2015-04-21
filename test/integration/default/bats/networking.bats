@@ -15,4 +15,5 @@
     grep -F 'ONBOOT=yes' '/etc/sysconfig/network-scripts/ifcfg-eth0:1'
     grep -F 'BOOTPROTO=static' '/etc/sysconfig/network-scripts/ifcfg-eth0:1'
     grep -F 'MTU=9000' '/etc/sysconfig/network-scripts/ifcfg-eth0:1'
+    grep -F 'HWADDR=90:E2:BA:5B:3F:44' '/etc/sysconfig/network-scripts/ifcfg-eth0:1'
 }

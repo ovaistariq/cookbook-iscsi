@@ -42,6 +42,21 @@ template "/etc/iscsi/initiatorname.iscsi" do
   )
 end
 
+# Setup the ethernet interfaces used by ISCSI
+# We only do this configuration if the network interfaces are defined
+if node["iscsi"].attribute?("network_interfaces")
+  for nic, nic_info in node["iscsi"]["network_interfaces"]
+    ifconfig nic_info["ipaddr"] do
+      device nic
+      hwaddr nic_info["hwaddr"]
+      mask nic_info["netmask"]
+      onboot "yes"
+      mtu "9000"
+      bootproto "static"
+    end
+  end
+end
+
 execute 'udev_reload_rules' do
   command node['iscsi']['udev']['reload_command']
   action :nothing
@@ -59,20 +74,5 @@ end
   service iscsi_subsys do
     supports status: true, restart: true
     action [:enable, :start]
-  end
-end
-
-
-# Setup the ethernet interfaces used by ISCSI
-# We only do this configuration if the network interfaces are defined
-if node["iscsi"].attribute?("network_interfaces")
-  for nic, nic_info in node["iscsi"]["network_interfaces"]
-    ifconfig nic_info["ipaddr"] do
-      device nic
-      mask nic_info["netmask"]
-      onboot "yes"
-      mtu "9000"
-      bootproto "static"
-    end
   end
 end
