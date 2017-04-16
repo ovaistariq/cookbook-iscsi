@@ -11,9 +11,9 @@ platforms:
 suites:
 - name: default
   run_list:
-  - recipe[iscsi::default]
+  - recipe[iscsi_test::default]
   attributes:
     iscsi:
       udev:
         interfaces:
-        - eth0 
+        - eth0

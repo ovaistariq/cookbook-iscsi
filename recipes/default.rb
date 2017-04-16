@@ -31,6 +31,32 @@ template '/etc/iscsi/iscsid.conf' do
   mode 00600
 end
 
+template "/etc/iscsi/initiatorname.iscsi" do
+  source "initiatorname.iscsi.erb"
+  owner "root"
+  group "root"
+  mode "0640"
+  action :create
+  variables(
+     :short_hostname => node['hostname']
+  )
+end
+
+# Setup the ethernet interfaces used by ISCSI
+# We only do this configuration if the network interfaces are defined
+if node["iscsi"].attribute?("network_interfaces")
+  for nic, nic_info in node["iscsi"]["network_interfaces"]
+    ifconfig nic_info["ipaddr"] do
+      device nic
+      hwaddr nic_info["hwaddr"]
+      mask nic_info["netmask"]
+      onboot "yes"
+      mtu "9000"
+      bootproto "static"
+    end
+  end
+end
+
 execute 'udev_reload_rules' do
   command node['iscsi']['udev']['reload_command']
   action :nothing
