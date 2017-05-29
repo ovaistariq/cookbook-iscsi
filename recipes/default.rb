@@ -44,7 +44,15 @@ template '/etc/udev/rules.d/50-ethtool.rules' do
   notifies :run, 'execute[udev_reload_rules]'
 end
 
-%w(iscsid iscsi netfs).each do |iscsi_subsys|
+iscsi_subsystems =
+  case node['platform']
+  when 'debian', 'ubuntu'
+    %w(open-iscsi)
+  when 'redhat', 'centos', 'scientific', 'oracle'
+    %w(iscsid iscsi netfs)
+  end
+
+iscsi_subsystems.each do |iscsi_subsys|
   service iscsi_subsys do
     supports status: true, restart: true
     action [:enable, :start]
