@@ -25,11 +25,17 @@ default['iscsi']['session']['timeo']['replacement_timeout'] = 15
 default['iscsi']['conn0']['timeo']['noop_out_interval'] = 5
 default['iscsi']['conn0']['timeo']['noop_out_timeout'] = 5
 
-if node['platform_version'].to_i >= 6
-  default['iscsi']['udev']['reload_command'] = 'udevadm control --reload-rules'
-else
-  default['iscsi']['udev']['reload_command'] = 'udevcontrol reload_rules'
-end
+default['iscsi']['udev']['reload_command'] =
+  case node['platform']
+  when 'debian', 'ubuntu'
+    'udevadm control --reload-rules'
+  when 'redhat', 'centos', 'scientific', 'oracle'
+    if node['platform_version'].to_i >= 6
+      'udevadm control --reload-rules'
+    else
+      'udevcontrol reload_rules'
+    end
+  end
 
 # RHEL default = 8, Recommendation = 12
 # Source: http://support.dell.com/support/edocs/software/rhel_mn/rhel5_4/iig_en.pdf
@@ -58,4 +64,10 @@ default['iscsi']['udev']['interfaces'] = []
 default['iscsi']['udev']['ethtool_opts'] = ['-A %k autoneg off rx on tx on', '-K %k gro off']
 
 # Following attributes are default set of packages to install
-default['iscsi']['packages'] = %w(iscsi-initiator-utils)
+default['iscsi']['packages'] =
+  case node['platform']
+  when 'debian', 'ubuntu'
+    %w(open-iscsi)
+  when 'redhat', 'centos', 'scientific', 'oracle'
+    %w(iscsi-initiator-utils)
+  end

@@ -7,6 +7,7 @@ long_description IO.read(File.join(File.dirname(__FILE__), 'README.md'))
 version '1.0.0'
 depends 'multipath'
 depends 'sysctl'
+depends 'apt'
 
 %w(redhat centos scientific amazon oracle).each do |os|
   supports os, '>= 5.0'
